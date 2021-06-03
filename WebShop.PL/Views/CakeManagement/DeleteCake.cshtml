@@ -1,0 +1,5 @@
+﻿
+@if (TempData["DbSave"] != null && TempData["DbSave"].ToString() == "Succesfull")
+{<h2 class="messagecolor"> @TempData["Title"] @TempData["DbSave"]</h2> }
+else
+{<h2 class="errormessagecolor"> @TempData["Title"] @TempData["DbSave"]</h2>}

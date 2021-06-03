@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebShop.DAL.Datacontext
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm"
+              method="post" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item m-1 bg-dark"><a style="color:#0366d6" href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
+                <li class="nav-item m-1 bg-dark">
+                    <a style="color:#0366d6">Hello @UserManager.GetUserName(User)</a>
+                </li>
+            </ul>
+        </form>
+    }
+}
+else
+{
+        <ul class="list-group list-group-horizontal">
+
+                <li class="list-group-item bg-dark mr-3 ml-5"><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+                <li class="list-group-item bg-dark mr-3 ml-5"><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        }

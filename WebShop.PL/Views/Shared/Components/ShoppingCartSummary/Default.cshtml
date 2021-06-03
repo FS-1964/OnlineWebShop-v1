@@ -1,0 +1,16 @@
+﻿@model ShoppingCartViewModel
+@using Microsoft.AspNetCore.Identity
+@using WebShop.DAL.Datacontext
+@inject SignInManager<ApplicationUser> SignInManager
+@if (SignInManager.IsSignedIn(User))
+{ 
+    <li>
+        <a asp-controller="ShoppingCart" asp-action="Index">
+            <span data-feather="shopping-cart"></span>
+            <span id="cart-status">
+                @if(Model.ShoppingCart.ShoppingCartItems != null && @Model.ShoppingCart.ShoppingCartItems.Count()>0)
+                  @Model.ShoppingCart.ShoppingCartItems.Count()
+            </span>
+        </a>
+    </li>
+}

@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityError>
+    <h2 class="text-danger">You don't have permission for this action.</h2>
+@foreach (var item in @Model)
+{  
+    <h3>Code:@item.Code Description:@item.Description</h3>
+}
+

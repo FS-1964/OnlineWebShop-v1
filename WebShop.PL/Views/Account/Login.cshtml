@@ -1,0 +1,98 @@
+﻿@using System.Threading.Tasks
+@using WebShop.DAL.Auth
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+
+
+@*<h2>Please log in.</h2>
+
+    <div class="card card-body  bg-light" style="width: 36rem;">
+        <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
+
+
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="UserName" class="col-md-6 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-6 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </form>
+        <div class="form-group">
+            <div class=" col-md-6">
+
+                <input type="submit" class="btn btn-outline-dark" value="  Log in  " />
+                @if (Model.ExternalLogins.Count > 0)
+                {
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        <button asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" formmethod="post" type="submit" class="btn btn-outline-dark"
+                                name="provider" value="@provider.Name"
+                                title="Log in using your @provider.DisplayName account">
+                            @provider.DisplayName
+                        </button>
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>*@
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+            <div class="form-group">
+                <a asp-action="ForgotPassword">Forgot Password</a>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Log in" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <partial name="_ExternalAuthentication" />
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+

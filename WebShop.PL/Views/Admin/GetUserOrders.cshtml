@@ -1,0 +1,138 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Order>
+<h2>User Orders</h2>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .Grid {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+            .Grid th {
+                background-color: #B8DBFD;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .Grid th, .Grid td {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .Grid img {
+                cursor: pointer;
+            }
+
+        .ChildGrid {
+            width: 100%;
+        }
+
+            .ChildGrid th {
+                background-color: #6C6C6C;
+                color: #fff;
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0" class="Grid">
+        <tr>
+            <th></th>
+            <th>OrderID</th>
+            <th>Date</th>
+            <th>Total</th>
+           
+        </tr>
+       
+        @foreach (Order order in Model)
+        {
+    <tr>
+        <td>
+            <img src="~/Images/plus.png" />
+            <div style="display:none">
+                <table cellpadding="0" cellspacing="0" class="ChildGrid">
+                    <tr>
+
+                        <th>OrderId</th>
+
+                        <th>CakeId</th>
+
+                        <th>Amount</th>
+
+                        <th>Price</th>
+                    </tr>
+                    @foreach (OrderDetail orderdetail in order.OrderDetails)
+                    {
+                        <tr>
+                            <td>@orderdetail.OrderId</td>
+                            <td>@orderdetail.CakeId</td>
+                            <td>@orderdetail.Amount</td>
+                            <td>@orderdetail.Price</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </td>
+
+        <td>@order.OrderId</td>
+        <td>@order.OrderPlaced</td>
+        <td>@order.OrderTotal</td>
+      
+    </tr>
+        }
+    </table>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        //Assign Click event to Plus Image.
+        $("body").on("click", "img[src*='plus.png']", function () {
+            $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+            $(this).attr("src", "/images/minus.png");
+        });
+        //Assign Click event to Minus Image.
+        $("body").on("click", "img[src*='minus.png']", function () {
+            $(this).attr("src", "/images/plus.png");
+            $(this).closest("tr").next().remove();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

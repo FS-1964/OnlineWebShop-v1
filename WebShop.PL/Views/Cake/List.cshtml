@@ -1,0 +1,10 @@
+﻿@model CakesListViewModel
+
+
+<h1>@Model.CurrentCategory</h1>
+<div class="row">
+    @foreach (var cake in Model.Cakes)
+    {
+        <partial name="_CakeCard" model="cake" />
+    }
+</div>

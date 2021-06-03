@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Cake>
+
+<h2>Cake Management</h2>
+@if (TempData["DbSave"] != null && TempData["DbSave"].ToString() == "Succesfull")
+{<h2 class="messagecolor"> @TempData["Title"] @TempData["DbSave"]</h2> }
+else
+{<h2 class="errormessagecolor"> @TempData["Title"] @TempData["DbSave"]</h2>}
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No cakes at this point :()</td></tr>
+}
+else
+{
+
+    <table class="table table-condensed table-bordered">
+
+        <tr>
+            <th>Cake ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>In stock</th>
+            <th>Sold Items</th>
+            <th>Price</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        @foreach (var cake in Model)
+        {
+    <tr>
+        <td>@cake.CakeId</td>
+        <td><img src="@cake.ImageThumbnailUrl" asp-append-version="true" width="150" height="100" /></td>
+        <td>@cake.Name</td>
+        <td>@cake.InStock </td>
+        <td>@cake.SoldItem</td>
+        <td>@cake.Price</td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="EditCake" asp-route-cakeId="@cake.CakeId">Edit</a>
+        </td>
+        <td>
+            <form asp-action="DeleteCake" asp-route-cakeId="@cake.CakeId" method="post">
+
+                <button type="submit" onclick="return confirm('Do you really want to delete this cake?');" class="btn btn-sm btn-danger">
+                    Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+        }
+    </table>
+}
+<p>
+    <a class="btn btn-primary" asp-action="AddCake">Add new cake</a>
+</p>

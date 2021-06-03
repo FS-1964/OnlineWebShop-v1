@@ -1,0 +1,62 @@
+﻿@model ShoppingCartViewModel
+
+<h2>Your shopping cart</h2>
+<h4>Here are the delicious pies in your shopping cart.</h4>
+@if (TempData["stock"] != null)
+{<h3> @TempData["stock"]</h3> }
+@*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<table class="table table-bordered ">
+    <thead>
+        <tr class="table table-primary">
+            <th>Add/Remove Items</th>
+            <th>Selected amount</th>
+            <th>Pie</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.ShoppingCart.GetShoppingCartItems())
+        {
+            var cakeid = line.Cake.CakeId;
+            <tr class="table table-primary">
+                <td>
+                    @*<a class="glyphicon glyphicon-minus" href="/ShoppingCart/RemoveFromShoppingCart/@cakeid"><span data-feather="minus"></span> </a>
+        <a class="glyphicon glyphicon-plus" href="/ShoppingCart/AddToShoppingCart/@cakeid"><span data-feather="plus"></span> </a>*@
+                    <a class="glyphicon glyphicon-minus" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-cakeid="@cakeid"><span data-feather="minus"></span> </a>
+                    <a class="glyphicon glyphicon-plus" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-cakeid="@cakeid"><span data-feather="plus"></span> </a>
+                </td>
+
+                <td class="text-center">@line.Amount</td>
+                <td class="text-left">@line.Cake.Name</td>
+                <td class="text-right">@line.Cake.Price.ToString("c")</td>
+                <td class="text-right">
+                    @((line.Amount * line.Cake.Price).ToString("c"))
+                </td>
+
+            </tr>
+        }
+
+
+
+    </tbody>
+
+    <tfoot>
+        <tr class="table table-primary">
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.ShoppingCartTotal.ToString("c")
+            </td>
+
+        </tr>
+    </tfoot>
+</table>
+
+@*###########################################################*@
+<div class="text-center">
+    <a class="btn btn-primary" asp-controller="Order" asp-action="Checkout">Check out now!</a>
+    <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="CancelOrder">Cancel</a>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="index">continue to shoping</a>
+</div>
+

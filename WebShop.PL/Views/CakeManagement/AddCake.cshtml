@@ -1,0 +1,87 @@
+﻿@model CakeEditViewModel
+
+<h2>Create a new cake</h2>
+
+<form asp-controller="CakeManagement" asp-action="AddCake" method="post" class="form-horizontal" role="form">
+    <h4>Enter the cake details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Cake.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.Name" class="form-control" />
+            <span asp-validation-for="Cake.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.ShortDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.ShortDescription" class="form-control" />
+            <span asp-validation-for="Cake.ShortDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.LongDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.LongDescription" class="form-control" />
+            <span asp-validation-for="Cake.LongDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.Price" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.Price" class="form-control" />
+            <span asp-validation-for="Cake.Price" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.ImageThumbnailUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.ImageThumbnailUrl" class="form-control" />
+            <span asp-validation-for="Cake.ImageThumbnailUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.ImageUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.ImageUrl" class="form-control" />
+            <span asp-validation-for="Cake.ImageUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.InStock" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.InStock" class="form-control" />
+            <span asp-validation-for="Cake.InStock" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.IsCakeOfTheWeek" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Cake.IsCakeOfTheWeek" class="form-control" />
+            <span asp-validation-for="Cake.IsCakeOfTheWeek" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cake.CategoryId" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="Cake.CategoryId" class="form-control"
+                    asp-items="Model.Categories"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create Cake" />
+        </div>
+    </div>
+</form>
