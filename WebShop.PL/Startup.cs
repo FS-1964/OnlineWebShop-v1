@@ -37,10 +37,11 @@ namespace WebShop.PL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             /********************************************/
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionPloto")));
+           
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
@@ -126,6 +127,7 @@ namespace WebShop.PL
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory,
                                 RoleManager<IdentityRole> roleManager, IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -142,13 +144,15 @@ namespace WebShop.PL
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            loggerFactory.AddSerilog();
             Log.Logger =
               new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath + @"\Log\Cakeshoplogs-{Date}.txt"))
+                .WriteTo.File(Path.Combine(env.ContentRootPath + $@"\Log\Cakeshoplogs-{DateTime.Today.Date.ToShortDateString()}.txt"))
+
                 .CreateLogger();
 
-            loggerFactory.AddSerilog();
+           
             app.UseResponseCompression();
 
             app.UseEndpoints(endpoints =>
